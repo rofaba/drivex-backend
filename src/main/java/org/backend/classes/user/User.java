@@ -1,4 +1,4 @@
-package org.backend.user;
+package org.backend.classes.user;
 
 
 import lombok.AllArgsConstructor;
