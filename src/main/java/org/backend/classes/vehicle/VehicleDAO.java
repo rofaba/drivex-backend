@@ -14,8 +14,8 @@ public class VehicleDAO implements DAO<Vehicle> {
     private static final Logger log = Logger.getLogger(VehicleDAO.class.getName());
     private final DataSource dataSource;
 
-    public VehicleDAO(DataSource dataProvider) {
-        this.dataSource = dataProvider;
+    public VehicleDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     // Mapea una fila del ResultSet a un Vehicle
@@ -35,12 +35,15 @@ public class VehicleDAO implements DAO<Vehicle> {
 
     @Override
     public Optional<Vehicle> save(Vehicle vehicle) {
-        String query = "INSERT INTO vehicles(" +
-                "reference, brand, model, color, description, price, year, fuel_type, created_at" +
-                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = """
+                INSERT INTO vehicles
+                    (reference, brand, model, color, description,
+                     price, year, fuel_type, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pst.setString(1, vehicle.getReference());
             pst.setString(2, vehicle.getBrand());
@@ -54,6 +57,7 @@ public class VehicleDAO implements DAO<Vehicle> {
 
             int res = pst.executeUpdate();
             if (res > 0) {
+                // Si hay PK autogenerada la recuperamos
                 try (ResultSet keys = pst.getGeneratedKeys()) {
                     if (keys.next()) {
                         vehicle.setId(keys.getInt(1));
@@ -62,22 +66,35 @@ public class VehicleDAO implements DAO<Vehicle> {
                 log.info("Vehicle inserted successfully");
                 return Optional.of(vehicle);
             }
+            return Optional.empty();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error saving vehicle", e);
         }
-
-        return Optional.empty();
     }
 
     @Override
     public Optional<Vehicle> update(Vehicle vehicle) {
-        String query = "UPDATE vehicles SET " +
-                "reference = ?, brand = ?, model = ?, color = ?, description = ?, " +
-                "price = ?, year = ?, fuel_type = ?, updated_at = ? " +
-                "WHERE id = ?";
+        if (vehicle.getId() == null) {
+            // Sin id no tiene sentido actualizar
+            return Optional.empty();
+        }
+
+        String sql = """
+                UPDATE vehicles
+                SET reference = ?,
+                    brand = ?,
+                    model = ?,
+                    color = ?,
+                    description = ?,
+                    price = ?,
+                    year = ?,
+                    fuel_type = ?,
+                    updated_at = ?
+                WHERE id = ?
+                """;
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query)) {
+             PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setString(1, vehicle.getReference());
             pst.setString(2, vehicle.getBrand());
@@ -95,91 +112,71 @@ public class VehicleDAO implements DAO<Vehicle> {
                 log.info("Vehicle updated successfully");
                 return Optional.of(vehicle);
             }
+            return Optional.empty();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error updating vehicle", e);
         }
-
-        return Optional.empty();
     }
 
     @Override
     public Optional<Vehicle> delete(Vehicle vehicle) {
-        if (vehicle.getId() == null) {
+        if (vehicle == null || vehicle.getId() == null) {
             return Optional.empty();
         }
 
-        String query = "DELETE FROM vehicles WHERE id = ?";
+        String sql = "DELETE FROM vehicles WHERE id = ?";
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query)) {
+             PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setInt(1, vehicle.getId());
             int res = pst.executeUpdate();
             if (res > 0) {
                 log.info("Vehicle deleted successfully");
+                // Devolvemos el vehículo que se ha borrado
                 return Optional.of(vehicle);
             }
+            return Optional.empty();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error deleting vehicle", e);
         }
-
-        return Optional.empty();
     }
 
     @Override
     public List<Vehicle> findAll() {
+        String sql = "SELECT id, reference, brand, model, color, description, price, year, fuel_type FROM vehicles";
+
         List<Vehicle> vehicles = new ArrayList<>();
-        String query = "SELECT * FROM vehicles";
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query);
+             PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
                 vehicles.add(mapper(rs));
             }
+            return vehicles;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error finding all vehicles", e);
         }
-
-        return vehicles;
     }
 
     @Override
     public Optional<Vehicle> findById(Integer id) {
-        String query = "SELECT * FROM vehicles WHERE id = ?";
+        String sql = "SELECT id, reference, brand, model, color, description, price, year, fuel_type FROM vehicles WHERE id = ?";
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query)) {
+             PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setInt(1, id);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     return Optional.of(mapper(rs));
                 }
+                return Optional.empty();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error finding vehicle by id", e);
         }
-
-        return Optional.empty();
-    }
-
-    public Optional<Vehicle> deleteById(Integer id) {
-        String query = "DELETE FROM vehicles WHERE id = ?";
-
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query)) {
-
-            pst.setInt(1, id);
-            int res = pst.executeUpdate();
-            if (res > 0) {
-                log.info("Vehicle deleted successfully");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return Optional.empty();
     }
 }
