@@ -53,7 +53,7 @@ create table users(
                       is_active boolean,
                       created_at timestamp,
                       updated_at timestamp,
-                      role enum('Admin', 'user')
+                      role varchar(20)
 );
 
 create table transactions(
@@ -189,10 +189,18 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF098','Rover','75','Berlina británica clásica',6000,2004,'Gasolina',NOW(),NOW()),
 ('REF099','Austin','Mini Cooper','Clásico británico original',12000,1985,'Gasolina',NOW(),NOW()),
 ('REF100','Simca','1000','Clásico francés compacto',5000,1970,'Gasolina',NOW(),NOW());
+
+
+
+
+
+
+
 select * from vehicles;
  drop table vehicles;
 drop table vehicle_images;
-update vehicles set brand = "Volkswagen" where model = "Golf GTI";
+update users set role = "Admin" where id = 2
+2
 ALTER TABLE vehicles CHANGE COLUMN `range` autonomy INT;
 ALTER TABLE vehicles
     ADD COLUMN average_consumption REAL;

@@ -29,7 +29,7 @@ public class VehicleController {
         if (marca != null && !marca.isBlank()) {
             return service.findByBrand(marca);
         }
-        return service.findAll();
+        return service.findAllByOrderByYearAsc();
     }
 
     // GET http://localhost:8080/api/vehicles/1

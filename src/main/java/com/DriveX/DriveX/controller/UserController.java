@@ -1,11 +1,13 @@
 package com.DriveX.DriveX.controller;
 
 import com.DriveX.DriveX.model.user.User;
+import com.DriveX.DriveX.model.vehicle.Vehicle;
 import com.DriveX.DriveX.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")  // OJO: se suma al /api del context path
@@ -54,5 +56,10 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public List<User> search(@RequestParam String q) {
+        return service.searchByUsername(q);
     }
 }

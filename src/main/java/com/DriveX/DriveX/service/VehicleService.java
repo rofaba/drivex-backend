@@ -20,6 +20,8 @@ public class VehicleService {
         return repo.findAll();
     }
 
+    public List<Vehicle> findAllByOrderByYearAsc() {return repo.findAllByOrderByBrandAsc();}
+
     public Optional<Vehicle> searchForId(Long id) {
         return repo.findById(id);
     }
