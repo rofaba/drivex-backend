@@ -14,6 +14,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     List<Vehicle> findByBrandContainingIgnoreCaseOrModelContainingIgnoreCase(String brand, String model);
 
     List<Vehicle> findAllByOrderByBrandAsc();
+
     List<Vehicle> findByYear(int year);
+
     List<Vehicle> findByvehicle_type(String vehicle_type);
 }
