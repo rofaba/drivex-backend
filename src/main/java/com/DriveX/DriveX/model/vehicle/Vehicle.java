@@ -51,7 +51,12 @@ public class Vehicle {
 
     private LocalDateTime updated_at;
 
+    private int doors;
+
+    private String vehicle_type;
+
+
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("vehicle")   // o simplemente @JsonIgnore si no quieres ni las imágenes
+    @JsonIgnoreProperties("vehicle")
     private List<VehicleImage> images = new ArrayList<>();
 }
