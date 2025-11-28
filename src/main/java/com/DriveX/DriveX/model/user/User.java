@@ -25,7 +25,7 @@ public class User {
     private String password_hash;
     @Column(name = "first_name")
     private String firstname;
-    @Column(name = "first_name")
+    @Column(name = "last_name")
     private String lastname;
 
     private String phone_number;
