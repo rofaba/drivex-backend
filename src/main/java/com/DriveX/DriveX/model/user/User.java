@@ -37,4 +37,6 @@ public class User {
     private Timestamp created_at;
 
     private Timestamp updated_at;
+
+    private String profile_image;
 }
