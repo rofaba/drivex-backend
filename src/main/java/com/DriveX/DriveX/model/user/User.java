@@ -23,10 +23,10 @@ public class User {
     private String email;
 
     private String password_hash;
-
-    private String first_name;
-
-    private String last_name;
+    @Column(name = "first_name")
+    private String firstname;
+    @Column(name = "first_name")
+    private String lastname;
 
     private String phone_number;
 
@@ -38,5 +38,6 @@ public class User {
 
     private Timestamp updated_at;
 
-    private String profile_image;
+    @Column(name = "profile_image")
+    private String profileImage;
 }

@@ -32,8 +32,8 @@ public class Vehicle {
     private Integer hp;
 
     private Integer autonomy;
-
-    private Double average_consumption;
+    @Column(name = "average_consumption")
+    private Double averageconsumption;
 
     private String description;
 
@@ -47,10 +47,10 @@ public class Vehicle {
     private Long mileage;
 
     private String extras;
-
-    private LocalDateTime created_at;
-
-    private LocalDateTime updated_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     private int doors;
     @Column(name = "vehicle_type")
