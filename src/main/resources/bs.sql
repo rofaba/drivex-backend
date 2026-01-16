@@ -206,3 +206,38 @@ ALTER TABLE vehicles
     ADD COLUMN average_consumption REAL;
 insert into vehicles(id, reference,brand,model) values(2, "4242C", "Ford", "Raptor")
 insert into users(username, email) values("Marcos", "marcos@gmail.com")
+
+
+-- sql rentals and transactions
+CREATE TABLE IF NOT EXISTS rentals (
+                                       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                       user_id INT NOT NULL,
+                                       vehicle_id INT NOT NULL,
+                                       start_date DATE NOT NULL,
+                                       end_date DATE NOT NULL,
+                                       price DECIMAL(10,2),
+    status VARCHAR(20) DEFAULT 'RESERVED',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_rentals_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rentals_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE,
+    INDEX idx_rentals_vehicle_dates (vehicle_id, start_date, end_date)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS transactions (
+                                            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                            rental_id INT,
+                                            vehicle_id INT,
+                                            buyer_id INT,
+                                            seller_id INT,
+                                            transaction_type VARCHAR(50),
+    amount DECIMAL(12,2),
+    order_status VARCHAR(50),
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    rental_start_date DATE,
+    rental_end_date DATE,
+    CONSTRAINT fk_transactions_rental FOREIGN KEY (rental_id) REFERENCES rentals(id) ON DELETE SET NULL,
+    INDEX idx_transactions_rental (rental_id),
+    INDEX idx_transactions_vehicle (vehicle_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

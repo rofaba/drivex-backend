@@ -109,7 +109,7 @@ public class VehicleController {
             @RequestParam Integer endYear) {
         return service.findByYearBetween(startYear, endYear);
     }
-    
+
     @GetMapping("/filter")
     public List<Vehicle> filter(
             @RequestParam(required = false) String brand,
