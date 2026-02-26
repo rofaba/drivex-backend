@@ -70,8 +70,6 @@ public class VehicleService {
         return repo.filter(brand, model, year, type);
     }
 
-    public List<Vehicle> findFavoritesByUserId(Long userId) {
-        return repo.findFavoritesByUserId(userId);
-    }
+
 
 }

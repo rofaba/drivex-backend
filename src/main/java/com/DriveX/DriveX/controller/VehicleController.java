@@ -104,10 +104,7 @@ public class VehicleController {
                 .toArray(Brand[]::new);
     }
 
-    @GetMapping("/users/{userId}/favorites")
-    public List<Vehicle> getUserFavorites(@PathVariable Long userId) {
-        return service.findFavoritesByUserId(userId);
-    }
+
     @GetMapping("/year-range")
     public List<Vehicle> findByYearRange(
             @RequestParam Integer startYear,

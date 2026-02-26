@@ -40,13 +40,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             @Param("type") String type
     );
 
-    @Query(value = """
-    SELECT v.*
-    FROM vehicles v
-    INNER JOIN favorites f ON f.vehicle_id = v.id
-    WHERE f.user_id = :userId
-    ORDER BY f.created_at DESC
-    """, nativeQuery = true)
-    List<Vehicle> findFavoritesByUserId(@Param("userId") Long userId);
+
 
 }
