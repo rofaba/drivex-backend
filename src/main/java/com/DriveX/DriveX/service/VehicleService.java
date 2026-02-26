@@ -63,12 +63,15 @@ public class VehicleService {
     }
 
     public List<Vehicle> filter(String brand, String model, Integer year, String type) {
-        // Se normaliza strings vacíos a null para que no molesten
         if (brand != null && brand.isBlank()) brand = null;
         if (model != null && model.isBlank()) model = null;
         if (type  != null && type.isBlank())  type  = null;
 
         return repo.filter(brand, model, year, type);
+    }
+
+    public List<Vehicle> findFavoritesByUserId(Long userId) {
+        return repo.findFavoritesByUserId(userId);
     }
 
 }

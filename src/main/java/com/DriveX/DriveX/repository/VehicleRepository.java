@@ -23,6 +23,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     List<Vehicle> findByYearBetween(Integer starYear, Integer endYear);
 
 
+
+
     @Query("""
        SELECT v
        FROM Vehicle v
@@ -37,5 +39,14 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
             @Param("year") Integer year,
             @Param("type") String type
     );
+
+    @Query(value = """
+    SELECT v.*
+    FROM vehicles v
+    INNER JOIN favorites f ON f.vehicle_id = v.id
+    WHERE f.user_id = :userId
+    ORDER BY f.created_at DESC
+    """, nativeQuery = true)
+    List<Vehicle> findFavoritesByUserId(@Param("userId") Long userId);
 
 }
