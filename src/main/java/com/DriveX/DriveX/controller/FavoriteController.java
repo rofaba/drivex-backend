@@ -10,7 +10,6 @@ import com.DriveX.DriveX.repository.VehicleRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/favorites")
@@ -28,15 +27,15 @@ public class FavoriteController {
         this.vehicleRepository = vehicleRepository;
     }
 
-    @GetMapping("/{userId}/favorites")
+    @GetMapping("/{userId}")
     public List<Vehicle> getFavorites(@PathVariable Long userId) {
         return favoriteRepository.findByUserId(userId)
                 .stream()
                 .map(Favorite::getVehicle)
-                .collect(Collectors.toList());
+                .collect(java.util.stream.Collectors.toList());
     }
 
-    @PostMapping("/{userId}/favorites/{vehicleId}")
+    @PostMapping("/{userId}/{vehicleId}")
     public void addFavorite(@PathVariable Long userId,
                             @PathVariable Long vehicleId) {
 
@@ -50,7 +49,7 @@ public class FavoriteController {
         favoriteRepository.save(new Favorite(user, vehicle));
     }
 
-    @DeleteMapping("/{userId}/favorites/{vehicleId}")
+    @DeleteMapping("/{userId}/{vehicleId}")
     public void removeFavorite(@PathVariable Long userId,
                                @PathVariable Long vehicleId) {
 
