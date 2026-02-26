@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/favorites")
+@RequestMapping("/favourites")
 public class FavoriteController {
 
     private final FavoriteRepository favoriteRepository;
