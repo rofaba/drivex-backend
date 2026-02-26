@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/favorites")
 public class FavoriteController {
 
     private final FavoriteRepository favoriteRepository;
