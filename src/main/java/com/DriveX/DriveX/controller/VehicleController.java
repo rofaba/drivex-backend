@@ -129,7 +129,7 @@ public class VehicleController {
     }
 
 
-    @PatchMapping("/vehicles/{id}/offers")
+    @PatchMapping("/{id}/offers")
     public ResponseEntity<?> updateOffers(
             @PathVariable Long id,
             @RequestBody Map<String, String> body) {
