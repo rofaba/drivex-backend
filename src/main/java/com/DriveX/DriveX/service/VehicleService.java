@@ -47,6 +47,14 @@ public class VehicleService {
         return repo.findByOffers("Yes");
     }
 
+    public void updateOffers(Long id, String offers) {
+        Vehicle vehicle = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+
+        vehicle.setOffers(offers);
+        repo.save(vehicle);
+    }
+
     public List<Vehicle> searchByBrandOrModel(String term) {
         return repo.findByBrandContainingIgnoreCaseOrModelContainingIgnoreCase(term, term);
     }

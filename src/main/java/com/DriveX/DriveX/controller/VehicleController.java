@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/vehicles")  // OJO: se suma al /api del context path
@@ -127,9 +128,19 @@ public class VehicleController {
         return service.findByOffers();
     }
 
-    // =========================
-    //   GENERADOR DE REFERENCIA
-    // =========================
+
+    @PatchMapping("/vehicles/{id}/offers")
+    public ResponseEntity<?> updateOffers(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
+
+        String offers = body.get("offers");
+
+        service.updateOffers(id, offers);
+
+        return ResponseEntity.ok().build();
+    }
+
     private String generateReference(Vehicle v) {
         // Parte de la marca
         String brand = v.getBrand() != null ? v.getBrand() : "GEN";
