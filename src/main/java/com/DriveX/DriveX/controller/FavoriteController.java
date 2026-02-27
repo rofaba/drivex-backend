@@ -1,6 +1,5 @@
 package com.DriveX.DriveX.controller;
 
-
 import com.DriveX.DriveX.model.vehicle.Favorite;
 import com.DriveX.DriveX.model.user.User;
 import com.DriveX.DriveX.model.vehicle.Vehicle;
@@ -29,17 +28,17 @@ public class FavoriteController {
 
     @GetMapping("/{userId}")
     public List<Vehicle> getFavorites(@PathVariable Long userId) {
-        return favoriteRepository.findByUserId(userId)
+        return favoriteRepository.findByUser_Id(userId)
                 .stream()
                 .map(Favorite::getVehicle)
-                .collect(java.util.stream.Collectors.toList());
+                .toList();
     }
 
     @PostMapping("/{userId}/{vehicleId}")
     public void addFavorite(@PathVariable Long userId,
                             @PathVariable Long vehicleId) {
 
-        if (favoriteRepository.findByUserIdAndVehicleId(userId, vehicleId).isPresent()) {
+        if (favoriteRepository.findByUser_IdAndVehicle_Id(userId, vehicleId).isPresent()) {
             return;
         }
 
@@ -53,6 +52,6 @@ public class FavoriteController {
     public void removeFavorite(@PathVariable Long userId,
                                @PathVariable Long vehicleId) {
 
-        favoriteRepository.deleteByUserIdAndVehicleId(userId, vehicleId);
+        favoriteRepository.deleteByUser_IdAndVehicle_Id(userId, vehicleId);
     }
 }
