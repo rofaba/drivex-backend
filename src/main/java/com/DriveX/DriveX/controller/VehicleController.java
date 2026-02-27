@@ -122,6 +122,11 @@ public class VehicleController {
         return service.filter(brand, model, year, vehicleType);
     }
 
+    @GetMapping("/offers")
+    public List<Vehicle> findByOffers() {
+        return service.findByOffers();
+    }
+
     // =========================
     //   GENERADOR DE REFERENCIA
     // =========================

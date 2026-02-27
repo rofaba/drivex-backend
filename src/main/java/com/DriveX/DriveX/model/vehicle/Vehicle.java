@@ -56,6 +56,8 @@ public class Vehicle {
     @Column(name = "vehicle_type")
     private String vehicleType;
 
+    private String offers;
+
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("vehicle")

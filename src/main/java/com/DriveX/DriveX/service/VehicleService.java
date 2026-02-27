@@ -43,6 +43,10 @@ public class VehicleService {
         return repo.findByBrandAndModel(brand, model);
     }
 
+    public List<Vehicle> findByOffers() {
+        return repo.findByOffers("Yes");
+    }
+
     public List<Vehicle> searchByBrandOrModel(String term) {
         return repo.findByBrandContainingIgnoreCaseOrModelContainingIgnoreCase(term, term);
     }

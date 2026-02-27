@@ -22,6 +22,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     List<Vehicle> findByYearBetween(Integer starYear, Integer endYear);
 
+    List<Vehicle> findByOffers(String offers);
+
 
 
 
