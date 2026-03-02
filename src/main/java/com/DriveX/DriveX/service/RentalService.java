@@ -21,10 +21,6 @@ public class RentalService {
         this.repository = repository;
     }
 
-    /**
-     * Create and persist a rental entity after checking availability.
-     * Caller provides a fully populated Rental (no DTOs).
-     */
     public Rental createRental(Rental rental) {
         if (!isAvailable(rental.getVehicleId(), rental.getStartDate(), rental.getEndDate())) {
             throw new RentalOverlapException("Vehicle not available for the requested period");

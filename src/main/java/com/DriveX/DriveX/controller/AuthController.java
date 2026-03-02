@@ -21,8 +21,8 @@ public class AuthController {
     public ResponseEntity<User> login(@RequestBody LoginRequest request) {
 
         return service.login(request.getEmail(), request.getPassword())
-                .map(ResponseEntity::ok)  // si existe, 200 + User
-                .orElse(ResponseEntity.status(401).build()); // 401 sin body
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(401).build());
     }
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {

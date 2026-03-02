@@ -14,8 +14,8 @@ import java.util.UUID;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/vehicles")  // OJO: se suma al /api del context path
-@CrossOrigin(origins = "*")    // Para que web, Android y JavaFX puedan llamar
+@RequestMapping("/vehicles")
+@CrossOrigin(origins = "*")
 public class VehicleController {
 
     private final VehicleService service;
@@ -24,7 +24,6 @@ public class VehicleController {
         this.service = service;
     }
 
-    // GET http://localhost:8080/api/vehicles
     @GetMapping
     public List<Vehicle> listar(@RequestParam(required = false) String marca) {
         if (marca != null && !marca.isBlank()) {
@@ -33,7 +32,6 @@ public class VehicleController {
         return service.findAllByOrderByYearAsc();
     }
 
-    // GET http://localhost:8080/api/vehicles/1
     @GetMapping("/{id}")
     public ResponseEntity<Vehicle> find(@PathVariable Long id) {
         return service.searchForId(id)
@@ -41,7 +39,6 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST http://localhost:8080/api/vehicles
     @PostMapping
     public ResponseEntity<Vehicle> add(@RequestBody Vehicle v) {
         v.setId(null);
@@ -53,7 +50,6 @@ public class VehicleController {
         return ResponseEntity.ok(service.save(v));
     }
 
-    // PUT http://localhost:8080/api/vehicles/1
     @PutMapping("/{id}")
     public ResponseEntity<Vehicle> update(@PathVariable Long id, @RequestBody Vehicle body) {
         return service.searchForId(id)
@@ -82,7 +78,6 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE http://localhost:8080/api/vehicles/1
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.deleteById(id);
@@ -158,7 +153,6 @@ public class VehicleController {
     }
 
     private String generateReference(Vehicle v) {
-        // Parte de la marca
         String brand = v.getBrand() != null ? v.getBrand() : "GEN";
         String brandPart = brand
                 .replaceAll("[^A-Za-z0-9]", "")
@@ -167,24 +161,20 @@ public class VehicleController {
         if (brandPart.length() >= 3) {
             brandPart = brandPart.substring(0, 3);
         } else {
-            // Rellena con X si es muy corta
             brandPart = String.format("%-3s", brandPart).replace(' ', 'X');
         }
 
-        // Año (campo del vehículo o año actual si viene null/0)
         int year = (v.getYear() != null && v.getYear() > 0)
                 ? v.getYear()
                 : LocalDate.now().getYear();
         String yearPart = String.valueOf(year);
 
-        // Parte aleatoria
         String randomPart = UUID.randomUUID()
                 .toString()
                 .replace("-", "")
                 .substring(0, 4)
                 .toUpperCase();
 
-        // Ejemplo: BMW2024A1B2
         return brandPart + yearPart + randomPart;
     }
 }

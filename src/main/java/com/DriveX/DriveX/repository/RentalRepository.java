@@ -16,6 +16,5 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
 
     List<Rental> findByStartDateBetween(LocalDate start, LocalDate end);
 
-    // Optionally: find active rentals overlapping a period to check availability
     List<Rental> findByVehicleIdAndEndDateAfterAndStartDateBefore(Long vehicleId, LocalDate from, LocalDate to);
 }

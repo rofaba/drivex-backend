@@ -4,15 +4,10 @@ Create Table vehicles(
                          id int primary key auto_increment,
                          reference varchar(50) not null,
                          brand ENUM(
-    -- Coches de lujo y deportivos
     'Ferrari','Lamborghini','Porsche','Maserati','Bentley','Rolls-Royce','McLaren','Pagani','Koenigsegg','Lotus','Aston Martin','Bugatti',
-    -- Coches generalistas
     'Audi','BMW','Mercedes','Volkswagen','Opel','Renault','Peugeot','Citroen','Ford','Toyota','Honda','Nissan','Mazda','Subaru','Hyundai','Kia','Fiat','Seat','Skoda','Dacia','Alfa Romeo','Jaguar','Land Rover','Chevrolet','Chrysler','Jeep','GMC','Cadillac','Mini','Infiniti','Acura','Buick','Lincoln','Tesla','Mitsubishi','Suzuki',
-    -- Marcas de motos
     'Yamaha','Kawasaki','Ducati','KTM','Triumph','Harley-Davidson','Indian','Royal Enfield','Aprilia','Moto Guzzi','Bajaj','Victory','Can-Am','Zero','BMW Motorrad','CFMOTO','Sherco','SYM','Malaguti','Beta','Gas Gas','Husaberg','Kymco','Rieju','Montesa','Ossa','Bimota','Cagiva','Laverda','Vespa','Italjet','Mondial','Peugeot Scooters','Aprilia Moto','MBK','KTM RC','Beta Motorcycles','Zero Motorcycles',
-    -- Otras marcas de coches exóticas o menos comunes
     'MG','Smart','Alpine','DS','Plymouth','Saab','Scion','Daihatsu','Holden','Tata','Proton','Perodua','Lada','Geely','Chery','Great Wall','Mahindra','Zotye','Fisker','Rimac','Lucid','Polestar','BYD','Nio','XPeng',
-    -- Marcas clásicas o históricas
     'Pontiac','Oldsmobile','Packard','Studebaker','Hummer','Delorean','Vector','Singer','Facel Vega','TVR','Bristol','Morgan','Caterham','Ginetta','Rover','Austin','Hillman','Sunbeam','Talbot','Simca','Datsun'
 ),
 model varchar(20),
@@ -70,7 +65,6 @@ create table transactions(
 );
 
 INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_type, created_at, updated_at) VALUES
--- 1–10
 ('REF001','Ferrari','488 GTB','Superdeportivo V8 biturbo',245000,2020,'Gasolina',NOW(),NOW()),
 ('REF002','Lamborghini','Huracán','Deportivo V10 de altas prestaciones',260000,2019,'Gasolina',NOW(),NOW()),
 ('REF003','Porsche','911 Carrera','Icono deportivo alemán',120000,2021,'Gasolina',NOW(),NOW()),
@@ -82,7 +76,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF009','Koenigsegg','Jesko','Hiperauto sueco de 1600 CV',2800000,2023,'Gasolina',NOW(),NOW()),
 ('REF010','Lotus','Elise','Deportivo ligero de motor central',52000,2019,'Gasolina',NOW(),NOW()),
 
--- 11–20
 ('REF011','Aston Martin','DB11','Gran turismo británico',185000,2018,'Gasolina',NOW(),NOW()),
 ('REF012','Bugatti','Chiron','Hiperauto de 1500CV',2500000,2020,'Gasolina',NOW(),NOW()),
 ('REF013','Audi','A4','Berlina premium alemana',35000,2021,'Gasolina',NOW(),NOW()),
@@ -94,7 +87,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF019','Peugeot','308','Compacto moderno',19000,2021,'Diésel',NOW(),NOW()),
 ('REF020','Citroen','C4','Compacto cómodo y versátil',20000,2022,'Gasolina',NOW(),NOW()),
 
--- 21–30
 ('REF021','Ford','Focus','Compacto americano',22000,2019,'Gasolina',NOW(),NOW()),
 ('REF022','Toyota','Corolla','Compacto fiable',23000,2022,'Híbrido',NOW(),NOW()),
 ('REF023','Honda','Civic','Compacto japonés deportivo',24000,2020,'Gasolina',NOW(),NOW()),
@@ -106,7 +98,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF029','Fiat','500','Ciudadano icónico',15000,2022,'Gasolina',NOW(),NOW()),
 ('REF030','Seat','León','Compacto español',23000,2020,'Gasolina',NOW(),NOW()),
 
--- 31–40
 ('REF031','Skoda','Octavia','Berlina espaciosa',26000,2021,'Diésel',NOW(),NOW()),
 ('REF032','Dacia','Duster','SUV económico muy vendido',17000,2023,'Gasolina',NOW(),NOW()),
 ('REF033','Alfa Romeo','Giulia','Berlina deportiva italiana',42000,2019,'Gasolina',NOW(),NOW()),
@@ -118,7 +109,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF039','Mini','Cooper S','Compacto premium británico',28000,2022,'Gasolina',NOW(),NOW()),
 ('REF040','Tesla','Model 3','Eléctrico superventas',45000,2023,'Eléctrico',NOW(),NOW()),
 
--- 41–50
 ('REF041','Mitsubishi','Outlander','SUV híbrido enchufable',35000,2020,'Híbrido',NOW(),NOW()),
 ('REF042','Suzuki','Swift','Utilitario japonés',16000,2021,'Gasolina',NOW(),NOW()),
 ('REF043','Yamaha','R1','Superbike japonesa',20000,2020,'Gasolina',NOW(),NOW()),
@@ -130,7 +120,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF049','Indian','Scout','Custom americana',16000,2021,'Gasolina',NOW(),NOW()),
 ('REF050','Royal Enfield','Interceptor','Clásica retro',6500,2022,'Gasolina',NOW(),NOW()),
 
--- 51–60
 ('REF051','Aprilia','RS 660','Deportiva italiana moderna',11500,2021,'Gasolina',NOW(),NOW()),
 ('REF052','Moto Guzzi','V7','Clásica italiana',9500,2020,'Gasolina',NOW(),NOW()),
 ('REF053','CFMOTO','800MT','Trail moderna',9500,2023,'Gasolina',NOW(),NOW()),
@@ -142,7 +131,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF059','Kymco','AK 550','Maxi scooter',9800,2023,'Gasolina',NOW(),NOW()),
 ('REF060','Rieju','MR 300','Enduro española',9000,2022,'Gasolina',NOW(),NOW()),
 
--- 61–70
 ('REF061','Montesa','4Ride','Trial-trail española',6900,2021,'Gasolina',NOW(),NOW()),
 ('REF062','Ossa','Explorer','Moto clásica española',4500,1979,'Gasolina',NOW(),NOW()),
 ('REF063','Bimota','Tesi H2','Superdeportiva exclusiva',65000,2022,'Gasolina',NOW(),NOW()),
@@ -154,7 +142,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF069','Alpine','A110','Deportivo francés ligero',68000,2021,'Gasolina',NOW(),NOW()),
 ('REF070','DS','DS7 Crossback','SUV premium francés',42000,2022,'Híbrido',NOW(),NOW()),
 
--- 71–80
 ('REF071','Plymouth','Barracuda','Muscle car clásico',55000,1971,'Gasolina',NOW(),NOW()),
 ('REF072','Saab','900','Clásico sueco turbo',9000,1994,'Gasolina',NOW(),NOW()),
 ('REF073','Daihatsu','Terios','SUV compacto japonés',8000,2008,'Gasolina',NOW(),NOW()),
@@ -166,7 +153,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF079','Chery','Tiggo 7','SUV chino',21000,2022,'Gasolina',NOW(),NOW()),
 ('REF080','Great Wall','Poer','Pick-up china',26000,2023,'Diésel',NOW(),NOW()),
 
--- 81–90
 ('REF081','Mahindra','XUV700','SUV indio moderno',25000,2022,'Gasolina',NOW(),NOW()),
 ('REF082','Fisker','Ocean','SUV eléctrico',42000,2023,'Eléctrico',NOW(),NOW()),
 ('REF083','Rimac','Nevera','Hiperauto eléctrico croata',2000000,2022,'Eléctrico',NOW(),NOW()),
@@ -178,7 +164,6 @@ INSERT INTO vehicles (reference, brand, model, description, price, year, fuel_ty
 ('REF089','Pontiac','Firebird','Muscle clásico americano',38000,1979,'Gasolina',NOW(),NOW()),
 ('REF090','Oldsmobile','Cutlass','Clásico americano',14000,1985,'Gasolina',NOW(),NOW()),
 
--- 91–100
 ('REF091','Packard','Clipper','Clásico americano de lujo',30000,1955,'Gasolina',NOW(),NOW()),
 ('REF092','Studebaker','Commander','Coche clásico americano',25000,1953,'Gasolina',NOW(),NOW()),
 ('REF093','Hummer','H2','SUV americano gigante',42000,2006,'Gasolina',NOW(),NOW()),
@@ -200,7 +185,6 @@ select * from vehicles;
  drop table vehicles;
 drop table vehicle_images;
 update users set role = "Admin" where id = 2
-2
 ALTER TABLE vehicles CHANGE COLUMN `range` autonomy INT;
 ALTER TABLE vehicles
     ADD COLUMN average_consumption REAL;
@@ -208,7 +192,6 @@ insert into vehicles(id, reference,brand,model) values(2, "4242C", "Ford", "Rapt
 insert into users(username, email) values("Marcos", "marcos@gmail.com")
 
 
--- sql rentals and transactions
 CREATE TABLE IF NOT EXISTS rentals (
                                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                        user_id INT NOT NULL,

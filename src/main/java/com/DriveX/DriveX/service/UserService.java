@@ -28,7 +28,6 @@ public class UserService {
     }
 
     public User save(User v) {
-        // ⚠️ Aquí asumimos que v.getPassword() viene en texto plano
         String rawPassword = v.getPassword_hash();
         String hashed = passwordEncoder.encode(rawPassword);
         v.setPassword_hash(hashed);
@@ -48,7 +47,6 @@ public class UserService {
 
         User user = userOpt.get();
 
-        // Aquí comparamos el texto plano con el hash usando BCrypt
         if (!passwordEncoder.matches(password, user.getPassword_hash())) {
             return Optional.empty();
         }
