@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vehicles")   // 👈 OJO: SIN /api delante
+@RequestMapping("/vehicles")
 public class VehicleImageController {
 
     private final VehicleImageService service;

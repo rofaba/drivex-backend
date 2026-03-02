@@ -23,13 +23,11 @@ public class VehicleImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore              // 👈 importantísimo para evitar recursión
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    // si en la BBDD la columna se llama image_url, pon esto:
-    // @Column(name = "image_url")
     private String imageUrl;
 
     private boolean isMain = false;

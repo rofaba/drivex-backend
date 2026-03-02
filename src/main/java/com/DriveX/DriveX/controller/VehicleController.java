@@ -55,13 +55,29 @@ public class VehicleController {
 
     // PUT http://localhost:8080/api/vehicles/1
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> update(@PathVariable Long id, @RequestBody Vehicle v) {
+    public ResponseEntity<Vehicle> update(@PathVariable Long id, @RequestBody Vehicle body) {
         return service.searchForId(id)
-                .map(existente -> {
-                    v.setId(id);
-                    // Si quieres que no cambie la referencia al editar, copia la que ya tenía:
-                    // v.setReference(existente.getReference());
-                    return ResponseEntity.ok(service.save(v));
+                .map(existing -> {
+
+                    existing.setBrand(body.getBrand());
+                    existing.setModel(body.getModel());
+                    existing.setVehicleType(body.getVehicleType());
+                    existing.setFuelType(body.getFuelType());
+
+                    existing.setYear(body.getYear());
+                    existing.setPrice(body.getPrice());
+                    existing.setMileage(body.getMileage());
+                    existing.setHp(body.getHp());
+                    existing.setDoors(body.getDoors());
+
+                    existing.setAutonomy(body.getAutonomy());
+                    existing.setAverageconsumption(body.getAverageconsumption());
+
+                    existing.setDescription(body.getDescription());
+                    existing.setExtras(body.getExtras());
+                    existing.setOffers(body.getOffers());
+
+                    return ResponseEntity.ok(service.save(existing));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
